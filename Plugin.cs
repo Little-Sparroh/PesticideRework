@@ -4,12 +4,12 @@ using BepInEx.Logging;
 using HarmonyLib;
 
 [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-[MycoMod(null, ModFlags.IsClientSide)]
+[MycoMod(null, ModFlags.IsSandbox)]
 public class SparrohPlugin : BaseUnityPlugin
 {
     public const string PluginGUID = "sparroh.pesticiderework";
     public const string PluginName = "PesticideRework";
-    public const string PluginVersion = "1.0.0";
+    public const string PluginVersion = "1.0.1";
 
     internal static new ManualLogSource Logger;
     internal static ConfigEntry<bool> enablePesticideRework;

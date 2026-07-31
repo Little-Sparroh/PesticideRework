@@ -1,18 +1,18 @@
 ﻿using BepInEx;
-using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
 
+namespace PesticideRework;
+
 [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
 [MycoMod(null, ModFlags.IsSandbox)]
-public class SparrohPlugin : BaseUnityPlugin
+public class PesticideReworkPlugin : BaseUnityPlugin
 {
     public const string PluginGUID = "sparroh.pesticiderework";
     public const string PluginName = "PesticideRework";
     public const string PluginVersion = "1.0.1";
 
-    internal static new ManualLogSource Logger;
-    internal static ConfigEntry<bool> enablePesticideRework;
+    internal new static ManualLogSource Logger;
 
     private Harmony harmony;
 
@@ -20,11 +20,7 @@ public class SparrohPlugin : BaseUnityPlugin
     {
         Logger = base.Logger;
 
-        enablePesticideRework = Config.Bind(
-            "General",
-            "Enable Pesticide Rework",
-            true,
-            "Enhances Pesticide flamethrower with turbocharged range boost and damage scaling with enemy missing health.");
+        ConfigManager.Initialize(Config, Logger);
 
         harmony = new Harmony(PluginGUID);
         harmony.PatchAll(typeof(PesticideReworkPatches));
@@ -32,8 +28,14 @@ public class SparrohPlugin : BaseUnityPlugin
         Logger.LogInfo($"{PluginName} v{PluginVersion} loaded successfully.");
     }
 
+    private void Update()
+    {
+        ConfigManager.Tick();
+    }
+
     private void OnDestroy()
     {
+        ConfigManager.Dispose();
         harmony?.UnpatchSelf();
     }
 }

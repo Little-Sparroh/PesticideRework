@@ -1,42 +1,56 @@
 # Pesticide Rework
 
-A BepInEx mod for Mycopunk that enhances the Pesticide flamethrower upgrade.
+A BepInEx mod for Mycopunk that enhances the Pesticide flamethrower upgrade with turbocharged range and missing-health
+damage scaling.
 
 ## Features
 
-- **Turbocharged Range**: When a turbocharged Pesticide/Flamethrower upgrade is equipped, flamethrower range is doubled.
-- **Missing Health Scaling**: Flamethrower DoT+AOE damage scales with how much health the target is missing (up to +125% at 0 HP remaining).
+When a **turbocharged** upgrade whose name contains `Pesticide` or `Flamethrower` is equipped:
+
+- **Turbocharged range** — Flamethrower range is multiplied (default **2×**).
+- **Missing-health scaling** — Flamethrower DoT + AOE damage scales with how much health the target is missing (default
+  up to **+125%** at 0 HP remaining).
 
 ## Getting Started
 
 ### Dependencies
 
-* Mycopunk (base game)
-* [BepInEx](https://github.com/BepInEx/BepInEx) - Version 5.4.2403 or compatible
-* .NET Framework 4.8
-* [HarmonyLib](https://github.com/pardeike/Harmony) (included via NuGet)
+- Mycopunk (base game)
+- [BepInEx Pack for Mycopunk](https://thunderstore.io/c/mycopunk/p/BepInEx/BepInExPack_Mycopunk/) — 5.4.2403 or
+  compatible
+- HarmonyLib (bundled with BepInEx)
 
-### Building/Compiling
+### Building
 
 ```bash
 dotnet build --configuration Release
 ```
 
+Output DLL: `bin/Release/netstandard2.1/PesticideRework.dll`
+
 ### Installing
 
-**Via Thunderstore (Recommended)**:
-1. Download and install via Thunderstore Mod Manager
+**Via Thunderstore (recommended)**
 
-**Manual Installation**:
-1. Place the built `PesticideRework.dll` in your `<Mycopunk Directory>/BepInEx/plugins/` folder
+1. Install with the Thunderstore Mod Manager / r2modman.
+
+**Manual installation**
+
+1. Install BepInEx for Mycopunk.
+2. Copy `PesticideRework.dll` into `<Mycopunk Directory>/BepInEx/plugins/`.
 
 ## Configuration
 
-Access mod settings at `<Mycopunk Directory>/BepInEx/config/sparroh.pesticiderework.cfg`:
+Config file: `<Mycopunk Directory>/BepInEx/config/sparroh.pesticiderework.cfg`
 
-| Setting | Default | Description |
-|---------|---------|-------------|
-| Enable Pesticide Rework | `true` | Enables turbocharged range and missing-health damage scaling. |
+Edits on disk are hot-reloaded (debounced). Damage multiplier applies on the next hit; range multiplier applies the next
+time upgrades are enabled.
+
+| Setting                          | Section | Default | Description                                                                                                 |
+|----------------------------------|---------|---------|-------------------------------------------------------------------------------------------------------------|
+| Enable Rework                    | General | `true`  | Enhances Pesticide flamethrower with turbocharged range boost and damage scaling with enemy missing health. |
+| Turbocharge Range Multiplier     | General | `2`     | Multiplies flamethrower range when a turbocharged Pesticide/Flamethrower upgrade is equipped.               |
+| Missing Health Damage Multiplier | General | `1.25`  | Extra damage multiplier at full missing health (0 HP remaining). Scales linearly with missing health ratio. |
 
 ## Authors
 
@@ -44,4 +58,4 @@ Access mod settings at `<Mycopunk Directory>/BepInEx/config/sparroh.pesticiderew
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
